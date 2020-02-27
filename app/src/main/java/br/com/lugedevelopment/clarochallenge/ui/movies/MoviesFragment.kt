@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge.ui.home
+package br.com.lugedevelopment.clarochallenge.ui.movies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,8 +21,10 @@ class MoviesFragment : Fragment() {
         moviesViewModel =
                 ViewModelProviders.of(this).get(MoviesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_movies, container, false)
-        moviesViewModel.text.observe(viewLifecycleOwner, Observer {
+        moviesViewModel.text.observe(viewLifecycleOwner, Observer {movies ->
+            movies.let {
 
+            }
         })
         return root
     }

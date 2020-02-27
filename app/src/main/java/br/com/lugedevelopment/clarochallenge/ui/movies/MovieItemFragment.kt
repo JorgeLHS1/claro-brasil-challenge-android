@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge
+package br.com.lugedevelopment.clarochallenge.ui.movies
 
 import android.content.Context
 import android.os.Bundle
@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.DummyItem
+import br.com.lugedevelopment.clarochallenge.R
+import br.com.lugedevelopment.clarochallenge.dao.MovieEntity
+import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
 
 /**
  * A fragment representing a list of Items.
@@ -21,6 +24,8 @@ class MovieItemFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
+
+    private lateinit var moviesViewModel: MoviesViewModel
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -38,15 +43,28 @@ class MovieItemFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_item_list, container, false)
 
-        // Set the adapter
         if (view is RecyclerView) {
+        var movies: MutableList<MovieEntity> = arrayListOf()
+
+            moviesViewModel =
+                ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+            moviesViewModel.allMovies.observe(viewLifecycleOwner, Observer {
+               movies.addAll(it)
+            })
+
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyMovieItemRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                adapter =
+                    MyMovieItemRecyclerViewAdapter(
+                        movies,
+                        listener
+                    )
             }
+
+
         }
         return view
     }
@@ -78,7 +96,7 @@ class MovieItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: MovieItem?)
     }
 
     companion object {

@@ -11,6 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import br.com.lugedevelopment.clarochallenge.dummy.DummyContent
+import br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity(), MovieItemFragment.OnListFragmentIntera
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction(item: DummyContent.MovieItem?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

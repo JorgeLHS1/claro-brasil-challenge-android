@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge
+package br.com.lugedevelopment.clarochallenge.ui.movies
 
 
 import android.view.LayoutInflater
@@ -6,25 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.lugedevelopment.clarochallenge.MovieItemFragment.OnListFragmentInteractionListener
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.DummyItem
+import br.com.lugedevelopment.clarochallenge.R
+import br.com.lugedevelopment.clarochallenge.dao.MovieEntity
+import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
+import br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_movie_item.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [MovieItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
 class MyMovieItemRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
+    private val mValues: List<MovieEntity>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyMovieItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
+    private var movies = emptyList<MovieEntity>()
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as MovieItem
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -39,13 +42,18 @@ class MyMovieItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.mIdView.text = item.movieName
+        holder.mContentView.text = item.movieCategory
 
         with(holder.mView) {
             tag = item
             setOnClickListener(mOnClickListener)
         }
+    }
+
+    fun setMovies(movies: List<MovieEntity>) {
+        this.movies = movies
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = mValues.size
