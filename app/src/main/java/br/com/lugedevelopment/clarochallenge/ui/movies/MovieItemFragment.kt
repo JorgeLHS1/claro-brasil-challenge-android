@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lugedevelopment.clarochallenge.R
-import br.com.lugedevelopment.clarochallenge.dao.MovieEntity
+import br.com.lugedevelopment.clarochallenge.data.models.Movie
 import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
 
 /**
@@ -44,12 +44,16 @@ class MovieItemFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie_item_list, container, false)
 
         if (view is RecyclerView) {
-        var movies: MutableList<MovieEntity> = arrayListOf()
+        var movies: MutableList<Movie> = arrayListOf()
 
             moviesViewModel =
                 ViewModelProviders.of(this).get(MoviesViewModel::class.java)
             moviesViewModel.allMovies.observe(viewLifecycleOwner, Observer {
-               movies.addAll(it)
+               //movies.addAll(it)
+            })
+
+            moviesViewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
+                movies.addAll(it)
             })
 
             with(view) {

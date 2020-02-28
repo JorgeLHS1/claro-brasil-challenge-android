@@ -4,12 +4,15 @@ package br.com.lugedevelopment.clarochallenge.ui.movies
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lugedevelopment.clarochallenge.R
-import br.com.lugedevelopment.clarochallenge.dao.MovieEntity
+import br.com.lugedevelopment.clarochallenge.data.dao.MovieEntity
+import br.com.lugedevelopment.clarochallenge.data.models.Movie
 import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
 import br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment.OnListFragmentInteractionListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_movie_item.view.*
 
 /**
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_movie_item.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class MyMovieItemRecyclerViewAdapter(
-    private val mValues: List<MovieEntity>,
+    private val mValues: List<Movie>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyMovieItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -42,8 +45,10 @@ class MyMovieItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.movieName
-        holder.mContentView.text = item.movieCategory
+        holder.mIdView.text = item.title
+        holder.mContentView.text = item.voteAverage.toString()
+        item.posterPath?.let { holder.bind(it) }
+
 
         with(holder.mView) {
             tag = item
@@ -59,11 +64,22 @@ class MyMovieItemRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+
         val mIdView: TextView = mView.movieNameTextView
-        val mContentView: TextView = mView.categoryMovieTextView
+        val mContentView: TextView = mView.ratingMovieTextView
+        val mImageView: ImageView = mView.posterImageView
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
         }
+
+        fun bind(posterPath: String){
+            val picasso = Picasso.get()
+            val url = "https://image.tmdb.org/t/p/w500" + posterPath
+            picasso.load(url)
+                .resize(150,200)
+                .into(mImageView)
+        }
+
     }
 }

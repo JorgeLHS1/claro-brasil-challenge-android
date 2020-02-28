@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge.dao
+package br.com.lugedevelopment.clarochallenge.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

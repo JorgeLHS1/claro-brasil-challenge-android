@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge.dao
+package br.com.lugedevelopment.clarochallenge.data.dao
 
 import android.content.Context
 import androidx.room.Database

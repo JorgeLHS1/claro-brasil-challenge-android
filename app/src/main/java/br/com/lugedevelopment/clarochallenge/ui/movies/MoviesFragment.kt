@@ -19,7 +19,7 @@ class MoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         moviesViewModel =
-                ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+            ViewModelProviders.of(this).get(MoviesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_movies, container, false)
         moviesViewModel.text.observe(viewLifecycleOwner, Observer {movies ->
             movies.let {
@@ -28,4 +28,6 @@ class MoviesFragment : Fragment() {
         })
         return root
     }
+
+
 }

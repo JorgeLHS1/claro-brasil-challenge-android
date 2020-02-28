@@ -1,4 +1,4 @@
-package br.com.lugedevelopment.clarochallenge.dao
+package br.com.lugedevelopment.clarochallenge.data.dao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
