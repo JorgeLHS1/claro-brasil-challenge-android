@@ -10,13 +10,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent
-import br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment
+import br.com.lugedevelopment.clarochallenge.data.models.Movie
+import br.com.lugedevelopment.clarochallenge.ui.movies.MoviesFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), MovieItemFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), MoviesFragment.OnListFragmentInteractionListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity(), MovieItemFragment.OnListFragmentIntera
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.MovieItem?) {
+    override fun onListFragmentInteraction(item: Movie) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

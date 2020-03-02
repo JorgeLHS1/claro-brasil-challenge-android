@@ -12,32 +12,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:autofillHints=""
+        android:drawableEnd="@android:drawable/ic_menu_search"
         android:ems="10"
         android:hint="@string/search_movie_text"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@id/searchMovieImageButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/searchMovieImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchMovieEditText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_search_category_default" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listMoviesRecyclerView"
+        android:name="br.com.lugedevelopment.clarochallenge.MovieItemFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchMovieEditText"
-        tools:layout="@layout/fragment_movie_item_list" />
+        tools:context=".ui.movies.MovieItemFragment"
+        tools:listitem="@layout/fragment_movie_item" />
+
+    <ProgressBar
+        android:id="@+id/searchMovieProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listMoviesRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/listMoviesRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/searchMovieEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

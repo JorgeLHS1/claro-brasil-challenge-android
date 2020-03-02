@@ -8,12 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.lugedevelopment.clarochallenge.R
-import br.com.lugedevelopment.clarochallenge.data.dao.MovieEntity
 import br.com.lugedevelopment.clarochallenge.data.models.Movie
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
-import br.com.lugedevelopment.clarochallenge.ui.movies.MovieItemFragment.OnListFragmentInteractionListener
+import br.com.lugedevelopment.clarochallenge.ui.movies.MoviesFragment.OnListFragmentInteractionListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_movie_item.view.*
+
 
 /**
  * [RecyclerView.Adapter] that can display a [MovieItem] and makes a call to the
@@ -26,11 +25,11 @@ class MyMovieItemRecyclerViewAdapter(
 ) : RecyclerView.Adapter<MyMovieItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
-    private var movies = emptyList<MovieEntity>()
+    private var movies = emptyList<Movie>()
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as MovieItem
+            val item = v.tag as Movie
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -56,10 +55,11 @@ class MyMovieItemRecyclerViewAdapter(
         }
     }
 
-    fun setMovies(movies: List<MovieEntity>) {
+    fun setMovies(movies: List<Movie>) {
         this.movies = movies
         notifyDataSetChanged()
     }
+
 
     override fun getItemCount(): Int = mValues.size
 

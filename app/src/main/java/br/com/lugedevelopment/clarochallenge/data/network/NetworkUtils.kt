@@ -7,7 +7,7 @@ class NetworkUtils {
 
     companion object {
 
-        fun getRetrofitInstance(path : String) : Retrofit {
+        fun getRetrofitInstance(path: String): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(path)
                 .addConverterFactory(MoshiConverterFactory.create())

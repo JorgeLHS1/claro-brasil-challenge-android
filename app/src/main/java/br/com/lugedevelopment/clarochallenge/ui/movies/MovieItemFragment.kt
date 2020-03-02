@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.lugedevelopment.clarochallenge.R
 import br.com.lugedevelopment.clarochallenge.data.models.Movie
-import br.com.lugedevelopment.clarochallenge.dummy.DummyContent.MovieItem
 
 /**
  * A fragment representing a list of Items.
@@ -43,34 +40,18 @@ class MovieItemFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_item_list, container, false)
 
-        if (view is RecyclerView) {
-        var movies: MutableList<Movie> = arrayListOf()
-
-            moviesViewModel =
-                ViewModelProviders.of(this).get(MoviesViewModel::class.java)
-            moviesViewModel.allMovies.observe(viewLifecycleOwner, Observer {
-               //movies.addAll(it)
-            })
-
-            moviesViewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
-                movies.addAll(it)
-            })
-
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter =
-                    MyMovieItemRecyclerViewAdapter(
-                        movies,
-                        listener
-                    )
-            }
+        moviesViewModel =
+            activity?.let { ViewModelProviders.of(it).get(MoviesViewModel::class.java) }!!
+        moviesViewModel.allMovies.observe(viewLifecycleOwner, Observer {
+            //movies.addAll(it)
+        })
 
 
-        }
         return view
+    }
+
+    fun showToast(context: Context, text: String, duration: Int){
+        Toast.makeText(context, text, duration).show()
     }
 
     override fun onAttach(context: Context) {
@@ -100,7 +81,7 @@ class MovieItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: MovieItem?)
+        fun onListFragmentInteraction(item: Movie?)
     }
 
     companion object {
